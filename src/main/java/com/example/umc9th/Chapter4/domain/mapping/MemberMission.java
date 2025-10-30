@@ -4,15 +4,11 @@ import com.example.umc9th.Chapter4.domain.member.Member;
 import com.example.umc9th.Chapter4.domain.mission.Mission;
 import com.example.umc9th.Chapter4.domain.review.Review;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member_mission")
 public class MemberMission {
@@ -33,4 +29,13 @@ public class MemberMission {
 
     @Column
     private boolean is_finished;
+
+    // 💡 [해결책] 생성자 대신 이 메소드를 사용합니다.
+    public static MemberMission createMemberMission(Member member, Mission mission, boolean isFinished) {
+        MemberMission memberMission = new MemberMission();
+        memberMission.setMember(member);
+        memberMission.setMission(mission);
+        memberMission.set_finished(isFinished);
+        return memberMission;
+    }
 }

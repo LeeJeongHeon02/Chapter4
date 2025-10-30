@@ -1,7 +1,10 @@
 package com.example.umc9th.Chapter4.domain.restaurant;
 
 
+import com.example.umc9th.Chapter4.domain.location.Location;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,8 +12,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "restaurant")
-@Getter
 @NoArgsConstructor
+@Data
 public class Restaurant {
 
     @Id
@@ -25,4 +28,8 @@ public class Restaurant {
 
     @Column(name = "restaurant_runtime")
     private LocalDateTime restaurantRuntime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id")
+    private Location location;
 }

@@ -8,9 +8,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "mission")
-@Getter
-@Setter
 @NoArgsConstructor
+@Data
 public class Mission {
 
         @Id
