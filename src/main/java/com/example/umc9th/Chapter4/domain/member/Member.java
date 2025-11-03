@@ -46,7 +46,7 @@ public class Member {
     @Column(name = "member_address")
     private String address;
 
-    @Column(name = "member_email", nullable = false)
+    @Column(name = "member_email")
     private String email;
 
     @Column(name = "member_phone_number", nullable = false)

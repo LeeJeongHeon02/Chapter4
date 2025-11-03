@@ -14,6 +14,12 @@ java {
 	}
 }
 
+// 💡 [해결책] 이 부분을 추가하세요.
+// Java 컴파일 시 파라미터 이름을 유지하도록 설정
+tasks.withType(JavaCompile) {
+	options.compilerArgs += '-parameters'
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -33,8 +39,43 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	implementation 'com.h2database:h2'
-}
 
+	// --- [QueryDSL] 1. 의존성 추가 ---
+	// Spring Boot 3.x (jakarta) 호환 5.x 버전 사용
+	implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.1.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+	// --- [QueryDSL] 1. 의존성 추가 끝 ---
+
+} // <-- 💡 여기가 dependencies 블록의 끝입니다. (잘못된 괄호 '}' 제거됨)
+
+// 💡 tasks.named('test') 블록은 dependencies 밖에 있어야 합니다.
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// --- [QueryDSL] 2. Q-Type 생성을 위한 설정 ---
+// (💡 이 부분은 dependencies 블록 밖에 있어야 합니다)
+
+// Q-Type 클래스가 생성될 디렉토리 지정
+def generatedDir = "build/generated/querydsl"
+
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(generatedDir))
+}
+
+// build 시 생성된 Q-Type을 소스 코드로 인식하도록 설정
+sourceSets {
+	main {
+		java {
+			srcDirs += [generatedDir]
+		}
+	}
+}
+
+// 'clean' 태스크 실행 시 생성된 Q-Type 디렉토리도 삭제
+clean {
+	delete file(generatedDir)
+}
+// --- [QueryDSL] 2. 설정 끝 ---
