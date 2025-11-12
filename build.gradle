@@ -48,6 +48,10 @@ dependencies {
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 	// --- [QueryDSL] 1. 의존성 추가 끝 ---
 
+	// Swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.13'
+
 } // <-- 💡 여기가 dependencies 블록의 끝입니다. (잘못된 괄호 '}' 제거됨)
 
 // 💡 tasks.named('test') 블록은 dependencies 밖에 있어야 합니다.

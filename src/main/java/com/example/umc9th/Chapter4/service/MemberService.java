@@ -1,8 +1,10 @@
 package com.example.umc9th.Chapter4.service;
 
 
-import com.example.umc9th.Chapter4.domain.dto.MemberRequestDTO;
+import com.example.umc9th.Chapter4.converter.MemberConverter;
+import com.example.umc9th.Chapter4.domain.dto.request.MemberRequestDTO;
 import com.example.umc9th.Chapter4.domain.dto.MyPageDto;
+import com.example.umc9th.Chapter4.domain.dto.response.MemberResponseDTO;
 import com.example.umc9th.Chapter4.domain.member.Member;
 import com.example.umc9th.Chapter4.global.apiPayload.code.GeneralErrorCode;
 import com.example.umc9th.Chapter4.global.apiPayload.exception.GeneralException;
@@ -33,6 +35,16 @@ public class MemberService {
                 .build();
 
         return memberRepository.save(newMember);
+    }
+    public MemberResponseDTO.SignUpResultDto signUp2(MemberRequestDTO.SignUpDto dto) {
+        Member member = MemberConverter.toMember(dto);
+        memberRepository.save(member);
+
+
+        // 비즈니스 로직 작성
+
+
+        return MemberConverter.toSignUpResultDto(member);
     }
 
     @Transactional

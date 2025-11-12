@@ -1,6 +1,5 @@
-package com.example.umc9th.Chapter4.domain.dto;
+package com.example.umc9th.Chapter4.domain.dto.request;
 
-import jakarta.annotation.Nullable;
 import lombok.Getter;
 
 public class MemberRequestDTO {

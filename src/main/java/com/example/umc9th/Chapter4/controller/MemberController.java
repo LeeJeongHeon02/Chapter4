@@ -1,11 +1,12 @@
 package com.example.umc9th.Chapter4.controller;
 
 
-import com.example.umc9th.Chapter4.domain.dto.MemberRequestDTO;
-import com.example.umc9th.Chapter4.domain.dto.MemberResponseDTO;
+import com.example.umc9th.Chapter4.domain.dto.request.MemberRequestDTO;
+import com.example.umc9th.Chapter4.domain.dto.response.MemberResponseDTO;
 import com.example.umc9th.Chapter4.domain.member.Member;
 import com.example.umc9th.Chapter4.global.apiPayload.ApiResponse;
 import com.example.umc9th.Chapter4.global.apiPayload.code.GeneralSuccessCode;
+import com.example.umc9th.Chapter4.global.apiPayload.code.MemberSuccessCode;
 import com.example.umc9th.Chapter4.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,5 +36,10 @@ public class MemberController {
 
         // 💡 CREATED(201) 코드와 함께 응답
         return ApiResponse.onSuccess(GeneralSuccessCode._CREATED, responseDto);
+    }
+
+    @PostMapping("/signup2")
+    public ApiResponse<MemberResponseDTO.SignUpResultDto> signUp2(@RequestBody MemberRequestDTO.SignUpDto dto) {
+        return ApiResponse.onSuccess(MemberSuccessCode.FOUND, memberService.signUp2(dto));
     }
 }

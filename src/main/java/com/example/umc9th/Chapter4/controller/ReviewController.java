@@ -1,6 +1,11 @@
 package com.example.umc9th.Chapter4.controller;
 
 import com.example.umc9th.Chapter4.domain.dto.MyReviewDto;
+import com.example.umc9th.Chapter4.domain.dto.request.ReviewRequestDTO;
+import com.example.umc9th.Chapter4.domain.dto.response.ReviewResponseDTO;
+import com.example.umc9th.Chapter4.domain.review.Review;
+import com.example.umc9th.Chapter4.global.apiPayload.ApiResponse;
+import com.example.umc9th.Chapter4.global.apiPayload.code.GeneralSuccessCode;
 import com.example.umc9th.Chapter4.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -8,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +37,18 @@ public class ReviewController {
     ) {
         Page<MyReviewDto> reviewPage = reviewService.getMyReviews(memberId, restaurantId, rating, pageable);
         return ResponseEntity.ok(reviewPage);
+    }
+
+    @PostMapping("/")
+    public ApiResponse<ReviewResponseDTO.WriteResultDto> writeReview(@RequestBody ReviewRequestDTO.WriteDto request) {
+
+        Review savedReview = reviewService.writeReview(request);
+
+        ReviewResponseDTO.WriteResultDto resultDto = ReviewResponseDTO.WriteResultDto.builder()
+                .reviewId(savedReview.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+
+        return ApiResponse.onSuccess(GeneralSuccessCode._CREATED, resultDto);
     }
 }

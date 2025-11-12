@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,9 @@ public class Member {
 
     @Column(name = "member_point")
     private int point;
+
+    @Column(name = "member_created_at")
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "member")
     private List<MemberReview> memberReviews = new ArrayList<>();
