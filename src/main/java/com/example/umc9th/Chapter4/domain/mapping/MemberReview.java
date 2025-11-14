@@ -26,4 +26,14 @@ public class MemberReview {
     @JoinColumn(name = "review_id")
     private Review review;
 
+    // '의미 있는' 생성자
+    private MemberReview(Member member, Review review) {
+        this.member = member;
+        this.review = review;
+    }
+
+    // 정적 팩토리 메서드
+    public static MemberReview create(Member member, Review review) {
+        return new MemberReview(member, review);
+    }
 }
