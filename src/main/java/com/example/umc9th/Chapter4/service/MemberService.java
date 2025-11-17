@@ -36,6 +36,7 @@ public class MemberService {
 
         return memberRepository.save(newMember);
     }
+
     public MemberResponseDTO.SignUpResultDto signUp2(MemberRequestDTO.SignUpDto dto) {
         Member member = MemberConverter.toMember(dto);
         memberRepository.save(member);
