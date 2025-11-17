@@ -27,6 +27,7 @@ class MemberServiceTest {
                 .name("정헌")
                 .age(25)
                 .gender(0)
+                .phoneNumber("01066434511")
                 .build();
 
         // When (실행)
@@ -50,6 +51,7 @@ class MemberServiceTest {
                 .name("SpringUser")
                 .age(99)
                 .gender(1)
+                .phoneNumber("01066434511")
                 .build();
 
         memberService.join(member1);
@@ -87,12 +89,14 @@ class MemberServiceTest {
                 .name("gender1")
                 .age(99)
                 .gender(1)
+                .phoneNumber("01066434511")
                 .build();
 
         Member member2 = Member.builder()
                 .name("gendeer0")
                 .age(22)
                 .gender(0)
+                .phoneNumber("01066434511")
                 .build();
 
         memberService.join(member1);
