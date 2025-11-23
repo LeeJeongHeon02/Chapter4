@@ -4,6 +4,8 @@ import com.example.umc9th.Chapter4.global.apiPayload.ApiResponse;
 import com.example.umc9th.Chapter4.global.apiPayload.code.BaseErrorCode;
 import com.example.umc9th.Chapter4.global.apiPayload.code.GeneralErrorCode;
 import com.example.umc9th.Chapter4.global.apiPayload.exception.GeneralException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -22,6 +24,20 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(errorCode.getStatus())
+                .body(response);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<Object>> handleConstraintViolationException(ConstraintViolationException e) {
+        String message = e.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("Validation error");
+
+        ApiResponse<Object> response = new ApiResponse<>(false, GeneralErrorCode._BAD_REQUEST.getCode(), message, null);
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
 

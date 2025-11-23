@@ -3,7 +3,6 @@ package com.example.umc9th.Chapter4.domain.dto.response;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MissionResponseDTO {
