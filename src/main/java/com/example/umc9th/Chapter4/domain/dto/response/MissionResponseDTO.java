@@ -1,5 +1,6 @@
 package com.example.umc9th.Chapter4.domain.dto.response;
 
+import com.example.umc9th.Chapter4.domain.dto.MissionDetailsDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,6 +43,19 @@ public class MissionResponseDTO {
     @AllArgsConstructor
     public static class MissionListDTO {
         private List<MissionPreviewDTO> missionList;
+        private Integer listSize;
+        private Integer totalPage;
+        private Long totalElements;
+        private Boolean isFirst;
+        private Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class InProgressMissionListDTO {
+        private List<MissionDetailsDto> missionList;
         private Integer listSize;
         private Integer totalPage;
         private Long totalElements;
