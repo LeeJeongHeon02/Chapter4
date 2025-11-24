@@ -61,6 +61,11 @@ public class MissionService {
         return missionRepository.save(mission);
     }
 
+    public Page<Mission> getMissions(Long restaurantId, int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return missionRepository.findByRestaurantId(restaurantId, pageable);
+    }
+
     /**
      * 회원이 미션에 도전하는 로직
      */

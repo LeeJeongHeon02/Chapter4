@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 // Q-Type 클래스들을 static import로 가져오면 편리합니다.
+import static com.example.umc9th.Chapter4.domain.member.QMember.member;
 import static com.example.umc9th.Chapter4.domain.mapping.QMemberReview.memberReview;
 import static com.example.umc9th.Chapter4.domain.review.QReview.review;
 import static com.example.umc9th.Chapter4.domain.restaurant.QRestaurant.restaurant;
@@ -30,14 +31,14 @@ public class MemberReviewRepositoryCustomImpl implements MemberReviewRepositoryC
         // 1. DTO 프로젝션(Projections)과 조인(Join) 설정
         List<MyReviewDto> content = queryFactory
                 .select(new QMyReviewDto(
-                        restaurant.restaurantName,
+                        member.name,
                         review.rating,
                         review.reviewContent,
                         review.createdDate
                 ))
                 .from(memberReview)
                 .join(memberReview.review, review)
-                .join(review.restaurant, restaurant)
+                .join(memberReview.member, member)
                 .where(
                         // 2. 기본 조건 (내가 쓴 리뷰)
                         memberReview.member.id.eq(memberId),
