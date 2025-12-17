@@ -8,9 +8,11 @@ import com.example.umc9th.Chapter4.domain.dto.response.MemberResponseDTO;
 import com.example.umc9th.Chapter4.domain.member.Member;
 import com.example.umc9th.Chapter4.global.apiPayload.code.GeneralErrorCode;
 import com.example.umc9th.Chapter4.global.apiPayload.exception.GeneralException;
+import com.example.umc9th.Chapter4.global.auth.enums.Role;
 import com.example.umc9th.Chapter4.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,17 +22,18 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Member signUp(MemberRequestDTO.SignUpDto request) {
 
         // DTO -> Entity 변환 (Builder 사용)
         Member newMember = Member.builder()
-                .name(request.getName())
-                .age(request.getAge())
-                .gender(request.getGender())
-                .phoneNumber(request.getPhoneNumber())
-                .email(request.getEmail())
+                .name(request.name())
+                .age(request.age())
+                .gender(request.gender())
+                .phoneNumber(request.phoneNumber())
+                .email(request.email())
                 .point(0) // 기본 포인트 0
                 .build();
 
@@ -38,7 +41,10 @@ public class MemberService {
     }
 
     public MemberResponseDTO.SignUpResultDto signUp2(MemberRequestDTO.SignUpDto dto) {
-        Member member = MemberConverter.toMember(dto);
+
+        String salt = passwordEncoder.encode(dto.password());
+
+        Member member = MemberConverter.toMember(dto, salt, Role.ROLE_USER);
         memberRepository.save(member);
 
 

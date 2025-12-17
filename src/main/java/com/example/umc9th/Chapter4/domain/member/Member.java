@@ -5,6 +5,7 @@ import com.example.umc9th.Chapter4.domain.mapping.MemberFood;
 import com.example.umc9th.Chapter4.domain.mapping.MemberMission;
 import com.example.umc9th.Chapter4.domain.mapping.MemberReview;
 import com.example.umc9th.Chapter4.domain.review.Review;
+import com.example.umc9th.Chapter4.global.auth.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -47,8 +48,14 @@ public class Member {
     @Column(name = "member_address")
     private String address;
 
-    @Column(name = "member_email")
+    @Column(name = "member_email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "member_password", nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "member_phone_number", nullable = false)
     private String phoneNumber;
