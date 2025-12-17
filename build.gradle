@@ -52,6 +52,10 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.13'
 
+	// Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+
 } // <-- 💡 여기가 dependencies 블록의 끝입니다. (잘못된 괄호 '}' 제거됨)
 
 // 💡 tasks.named('test') 블록은 dependencies 밖에 있어야 합니다.
