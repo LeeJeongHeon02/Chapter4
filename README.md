@@ -1,4 +1,4 @@
-# UMC 워크북을 학습하면서 만든 API 목록
+# 만든 API 목록
 <img width="2022" height="1327" alt="image" src="https://github.com/user-attachments/assets/899970dd-2be5-4989-aca6-272799796710" />
 
 ## SpringSequrity 적용 및 DB에 정상적으로 저장 및 검증 과정 확인
